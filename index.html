@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Programs</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 20px;
+      color: #000;
+    }
+
+    h1 {
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #000;
+      margin-bottom: 20px;
+    }
+
+    pre {
+      border: 1px solid #000;
+      padding: 10px;
+      font-size: 14px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #000;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Java Programs</h1>
+  <select id="programSelector" onchange="showCode()">
+    <option value="0">Select a program</option>
+    <option value="1">Experiment 1: Matrix Addition</option>
+    <option value="2">Experiment 2: Stack Operations</option>
+    <option value="3a">Experiment 3A: Employee Class</option>
+    <option value="3b">Experiment 3B: Employee Management System</option>
+    <option value="4">Experiment 4: MyPoint Class</option>
+    <option value="5">Experiment 5: Shape Polymorphism</option>
+    <option value="6">Experiment 6: Abstract Shape Class</option>
+  </select>
+
+  <pre id="codeArea">// Select a program from the dropdown to view its code</pre>
+  <button onclick="copyCode()">Copy Code</button>
+
+  <script>
+    const programs = {
+      1: `import java.util.Scanner; 
+ 
+public class MatrixAddition 
+{ 
+public static void main(String[] args) 
+{ 
+if (args.length != 1) 
+{ 
+System.out.println("Please provide a single integer 
+argument N."); 
+return; 
+} 
+ 
+int N = Integer.parseInt(args[0]); 
+ 
+if (N <= 0) 
+{ 
+System.out.println("N must be a positive integer."); 
+return; 
+} 
+ 
+Scanner scanner = new Scanner(System.in); 
+ 
+int[][] matrix1 = new int[N][N]; 
+int[][] matrix2 = new int[N][N]; 
+ 
+// Read values for matrix1 
+System.out.println("Enter values for Matrix 1:"); 
+readMatrixValues(matrix1, scanner); 
+ 
+// Read values for matrix2 
+System.out.println("Enter values for Matrix 2:"); 
+readMatrixValues(matrix2, scanner); 
+ 
+System.out.println("Matrix 1:"); 
+printMatrix(matrix1); 
+System.out.println("Matrix 2:"); 
+printMatrix(matrix2); 
+int[][] result = addMatrices(matrix1, matrix2); 
+System.out.println("Sum of the matrices:"); 
+printMatrix(result); 
+ 
+scanner.close(); 
+} 
+ 
+public static void readMatrixValues(int[][] matrix, Scanner 
+scanner) 
+{ 
+int N = matrix.length; 
+for (int i = 0; i < N; i++) 
+{ 
+for (int j = 0; j < N; j++) 
+{ 
+System.out.print("Enter value for row " + (i + 1) 
++ " column " + (j + 1) + ": "); 
+matrix[i][j] = scanner.nextInt(); 
+} 
+} 
+} 
+ 
+public static int[][] addMatrices(int[][] matrix1, int[][] 
+matrix2) 
+{ 
+int N = matrix1.length; 
+int[][] result = new int[N][N]; 
+ 
+for (int i = 0; i < N; i++) 
+{ 
+for (int j = 0; j < N; j++) 
+{ 
+result[i][j] = matrix1[i][j] + matrix2[i][j]; 
+} 
+} 
+ 
+return result; 
+} 
+ 
+public static void printMatrix(int[][] matrix) 
+{ 
+int N = matrix.length; 
+for (int i = 0; i < N; i++) 
+{ 
+for (int j = 0; j < N; j++) 
+{ 
+System.out.print(matrix[i][j] + " "); 
+} 
+System.out.println(); 
+} 
+} 
+} `,
+      2: `import java.util.Scanner;
+
+import java.util.Scanner;
+
+public class Stack {
+    private int[] stackArray;
+    private int top;
+    private int maxSize;
+
+    public Stack(int size) {
+        maxSize = size;
+        stackArray = new int[maxSize];
+        top = -1;
+    }
+
+    public boolean isEmpty() {
+        return top == -1;
+    }
+
+    public boolean isFull() {
+        return top == maxSize - 1;
+    }
+
+    public void push(int item) {
+        if (isFull()) {
+            System.out.println("Stack is full. Cannot push " + item);
+        } else {
+            stackArray[++top] = item;
+            System.out.println(item + " pushed onto the stack.");
+        }
+    }
+
+    public int pop() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty. Cannot pop.");
+            return -1;
+        } else {
+            int poppedItem = stackArray[top--];
+            System.out.println(poppedItem + " popped from the stack.");
+            return poppedItem;
+        }
+    }
+
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty. Cannot peek.");
+            return -1;
+        } else {
+            return stackArray[top];
+        }
+    }
+
+    public int size() {
+        return top + 1;
+    }
+
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty.");
+        } else {
+            System.out.print("Stack (top to bottom): ");
+            for (int i = top; i >= 0; i--) {
+                System.out.print(stackArray[i] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the maximum size of the stack: ");
+        int maxSize = scanner.nextInt();
+        Stack stack = new Stack(maxSize);
+
+        while (true) {
+            System.out.println("\nStack Operations:");
+            System.out.println("1. Push");
+            System.out.println("2. Pop");
+            System.out.println("3. Peek");
+            System.out.println("4. Display");
+            System.out.println("5. Quit");
+            System.out.print("Enter your choice (1-5): ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter value to push onto the stack: ");
+                    int value = scanner.nextInt();
+                    stack.push(value);
+                    break;
+                case 2:
+                    stack.pop();
+                    break;
+                case 3:
+                    int peekValue = stack.peek();
+                    if (peekValue != -1) {
+                        System.out.println("Top of the stack: " + peekValue);
+                    }
+                    break;
+                case 4:
+                    stack.display();
+                    break;
+                case 5:
+                    scanner.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option (1-5).");
+            }
+        }
+    }
+}
+`,
+      "3a": `import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class Employee {
+    private int id;
+    private String name;
+    private double salary;
+
+    public Employee(int id, String name, double salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public void raiseSalary(double percent) {
+        if (percent > 0) {
+            double increaseAmount = (percent / 100) * salary;
+            salary += increaseAmount;
+            System.out.println(name + "'s salary increased by " + percent + "%.");
+        } else {
+            System.out.println("Invalid percentage. Salary remains unchanged.");
+        }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void display() {
+        System.out.println("Employee ID: " + id);
+        System.out.println("Employee Name: " + name);
+        System.out.println("Employee Salary: $" + salary);
+    }
+}
+
+public class EmployeeManagement {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Employee> employees = new ArrayList<>();
+
+        int choice;
+        do {
+            System.out.println("\nEmployee Management System");
+            System.out.println("1. Add Employee");
+            System.out.println("2. Raise Salary");
+            System.out.println("3. Display All Employees");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice (1-4): ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    employees.add(inputEmployeeDetails(scanner));
+                    break;
+                case 2:
+                    raiseSalaryForEmployee(employees, scanner);
+                    break;
+                case 3:
+                    displayAllEmployees(employees);
+                    break;
+                case 4:
+                    System.out.println("Exiting the program.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option (1-4).");
+            }
+        } while (choice != 4);
+
+        scanner.close();
+    }
+
+    private static Employee inputEmployeeDetails(Scanner scanner) {
+        System.out.print("Enter Employee ID: ");
+        int id = scanner.nextInt();
+
+        System.out.print("Enter Employee Name: ");
+        scanner.nextLine();
+        String name = scanner.nextLine();
+
+        System.out.print("Enter Employee Salary: $");
+        double salary = scanner.nextDouble();
+
+        return new Employee(id, name, salary);
+    }
+
+    private static void raiseSalaryForEmployee(List<Employee> employees, Scanner scanner) {
+        if (employees.isEmpty()) {
+            System.out.println("No employees to raise salary for.");
+            return;
+        }
+
+        System.out.print("Enter the Employee ID to raise their salary: ");
+        int targetId = scanner.nextInt();
+        boolean found = false;
+
+        for (Employee employee : employees) {
+            if (employee.getId() == targetId) {
+                System.out.print("Enter the percentage to raise the salary by: ");
+                double percent = scanner.nextDouble();
+                employee.raiseSalary(percent);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Employee with ID " + targetId + " not found.");
+        }
+    }
+
+    private static void displayAllEmployees(List<Employee> employees) {
+        if (employees.isEmpty()) {
+            System.out.println("No employees to display.");
+        } else {
+            System.out.println("\nEmployee Details:");
+            for (Employee employee : employees) {
+                employee.display();
+            }
+        }
+    }
+}
+`,
+      4: `class MyPoint {
+    private int x;
+    private int y;
+
+    public MyPoint() {
+        this(0, 0);
+    }
+
+    public MyPoint(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void setXY(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int[] getXY() {
+        return new int[]{x, y};
+    }
+
+    public double distance(int x, int y) {
+        int xDiff = this.x - x;
+        int yDiff = this.y - y;
+        return Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+    }
+
+    public double distance(MyPoint another) {
+        return distance(another.x, another.y);
+    }
+
+    public double distance() {
+        return distance(0, 0);
+    }
+
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
+}
+
+public class TestMyPoint {
+    public static void main(String[] args) {
+        MyPoint point1 = new MyPoint();
+        MyPoint point2 = new MyPoint(3, 4);
+
+        System.out.println("Point 1: " + point1.toString());
+        System.out.println("Point 2: " + point2.toString());
+
+        point1.setXY(5, 6);
+        System.out.println("New coordinates for Point 1: " + point1.toString());
+
+        int[] coordinates = point2.getXY();
+        System.out.println("Coordinates of Point 2: (" + coordinates[0] + ", " + coordinates[1] + ")");
+
+        double distance1 = point1.distance(8, 10);
+        System.out.println("Distance from Point 1 to (8, 10): " + distance1);
+
+        double distance2 = point1.distance(point2);
+        System.out.println("Distance from Point 1 to Point 2: " + (int) distance2);
+
+        double distance3 = point1.distance();
+        System.out.println("Distance from Point 1 to the origin (0,0): " + (int) distance3);
+    }
+}
+`,
+      5: `class shape {
+    public void draw() {
+        System.out.println("Drawing a shape.");
+    }
+
+    public void erase() {
+        System.out.println("Erasing a shape.");
+    }
+}
+
+class circle extends shape {
+    public void draw() {
+        System.out.println("Drawing a circle.");
+    }
+
+    public void erase() {
+        System.out.println("Erasing a circle.");
+    }
+}
+
+class triangle extends shape {
+    public void draw() {
+        System.out.println("Drawing a triangle.");
+    }
+
+    public void erase() {
+        System.out.println("Erasing a triangle.");
+    }
+}
+
+class square extends shape {
+    public void draw() {
+        System.out.println("Drawing a square.");
+    }
+
+    public void erase() {
+        System.out.println("Erasing a square.");
+    }
+}
+
+public class ShapeDemo {
+    public static void main(String[] args) {
+        shape[] shapes = new shape[3];
+        shapes[0] = new circle();
+        shapes[1] = new triangle();
+        shapes[2] = new square();
+
+        for (shape shape : shapes) {
+            shape.draw();
+            shape.erase();
+            System.out.println();
+        }
+    }
+}
+`,
+      6: `abstract class Shape {
+    public abstract double calculateArea();
+    public abstract double calculatePerimeter();
+}
+
+class Circle extends Shape {
+    private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    public double calculateArea() {
+        return Math.PI * radius * radius;
+    }
+
+    public double calculatePerimeter() {
+        return 2 * Math.PI * radius;
+    }
+}
+
+class Triangle extends Shape {
+    private double side1;
+    private double side2;
+    private double side3;
+
+    public Triangle(double side1, double side2, double side3) {
+        this.side1 = side1;
+        this.side2 = side2;
+        this.side3 = side3;
+    }
+
+    public double calculateArea() {
+        double s = (side1 + side2 + side3) / 2;
+        return Math.sqrt(s * (s - side1) * (s - side2) * (s - side3));
+    }
+
+    public double calculatePerimeter() {
+        return side1 + side2 + side3;
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Circle circle = new Circle(5.0);
+        Triangle triangle = new Triangle(3.0, 4.0, 5.0);
+
+        System.out.println("Circle - Area: " + (int)circle.calculateArea() + " Perimeter: " + (int)circle.calculatePerimeter());
+        System.out.println("Triangle - Area: " + (int)circle.calculateArea() + " Perimeter: " + (int)triangle.calculatePerimeter());
+    }
+}
+`
+    };
+
+    function showCode() {
+      const programSelector = document.getElementById("programSelector");
+      const codeArea = document.getElementById("codeArea");
+      const selectedProgram = programSelector.value;
+
+      codeArea.textContent =
+        selectedProgram === "0"
+          ? "// Select a program from the dropdown to view its code"
+          : programs[selectedProgram];
+    }
+
+    function copyCode() {
+      const codeArea = document.getElementById("codeArea");
+      navigator.clipboard.writeText(codeArea.textContent).then(() => {
+        alert("Code copied to clipboard!");
+      });
+    }
+  </script>
+</body>
+</html>
